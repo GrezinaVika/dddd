@@ -6,7 +6,7 @@ shop_db ={
     0 : {
         "name" : "Шампунь",
         "quantity": 3,
-        "price" : 100
+        "price" : 50
     },
     1 : {
         "name" : "Пицца",
