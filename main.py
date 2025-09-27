@@ -25,7 +25,7 @@ shop_db ={
 async def home():
     return {"data" : "Welcome to my Shop"}
 
-@app.get("/products", tags=["Продукты"])
+@app.get("/products/", tags=["Продукты"])
 async def get_produtcs():
     return {"data" : shop_db}
 
@@ -36,7 +36,7 @@ async def get_produtc(id: int):
     else:
         return {"msg" : "Товара не существует"}
 
-@app.post("/products", tags=["Продукты"])
+@app.post("/products/", tags=["Продукты"])
 async def add_produtc(data: dict):
     id = len(shop_db.keys())
     if shop_db.get(id, None):
@@ -45,4 +45,10 @@ async def add_produtc(data: dict):
         shop_db[id] = data
         return {"data" : data}
 
-    
+@app.put("/products/{id}", tags=["Продукты"])
+async def edit_produtc(id: int, data: dict):
+    if shop_db.get(id, None):
+        shop_db[id] = data
+        return {"data" : shop_db[id]}
+    else:
+        return {"msg" : "Товара не существует"}   
