@@ -35,4 +35,13 @@ async def get_produtc(id: int):
         return {"data" : shop_db[id]}
     else:
         return {"msg" : "Товара не существует"}
+    
+@app.post("/products/{id}", tags=["Продукты"])
+async def add_product(data: dict):
+    id: int = len(shop_db.keys())
+    if shop_db.get(id, None):
+        shop_db[id] = data
+        return {"msg" : "Данные добавлены"}
+    else:
+        return {"err" : "Такой товар существует!"}
 
