@@ -46,3 +46,10 @@ async def add_produtc(data: dict):
         shop_db[id] = data
         return {"msg" : data}
 
+@app.put("/products/{id}", tags=["Продукты"])
+async def edit_produtc(id: int, data: dict):
+    if shop_db.get(id, None):
+        shop_db[id] = data
+        return {"data" : shop_db[id]}
+    else:
+        return {"msg" : "Товара не существует"}
