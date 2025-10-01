@@ -20,14 +20,23 @@ shop_db ={
     },
 }
 
+id_product = 3
+
 
 @app.get("/", tags=["Магазин"])
 async def home():
     return {"data" : "Welcome to my Shop"}
 
-@app.get("/products", tags=["Продукты"])
+@app.get("/products/", tags=["Продукты"])
 async def get_produtcs():
     return {"data" : shop_db}
+
+@app.post("/products/", tags=["Продукты"])
+async def create_product(data: dict):
+    global id_product
+    shop_db[id_product] = data
+    id_product += 1
+    return {"msg" : "Товар добавлен"}
 
 @app.get("/products/{id}", tags=["Продукты"])
 async def get_produtc(id: int):
@@ -35,4 +44,13 @@ async def get_produtc(id: int):
         return {"data" : shop_db[id]}
     else:
         return {"msg" : "Товара не существует"}
+
+@app.delete("/products/{id}", tags=["Продукты"])
+async def delete_product(id: int):
+    if shop_db.get(id, None):
+        del shop_db[id]
+        return {"msg" : "Товар удален"}
+    else:
+        return {"msg" : "Товара не существует"}
+
 
