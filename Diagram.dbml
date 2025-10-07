@@ -1,0 +1,23 @@
+Table products [headercolor: #c4a9d9] {
+	id integer [ pk, increment, not null, unique ]
+	name varchar(50)
+	quantity integer
+	price integer
+	manufactorers_id integer
+}
+
+Table users [headercolor: #91d17b] {
+	id integer [ pk, increment, not null, unique ]
+	email varchar(50)
+	password varchar(50)
+}
+
+Table manufacturers [headercolor: #bab86c] {
+	id integer [ pk, increment, not null, unique ]
+	name varchar(50)
+	phone varchar(50)
+}
+
+Ref fk_manufacturers_id_products {
+	manufacturers.id < products.manufactorers_id [ delete: no action, update: no action ]
+}
